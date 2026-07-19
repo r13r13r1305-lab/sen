@@ -3,84 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEN | Premium Flix</title>
+    <title>SEN | Netflix Premium</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 0; }
-        header { padding: 15px; display: flex; align-items: center; }
-        .logo { color: #E50914; font-size: 28px; font-weight: 900; margin-right: 15px; }
-        
-        .row-container { margin: 25px 0; }
-        .row-title { font-size: 18px; font-weight: bold; padding: 0 15px; margin-bottom: 12px; border-right: 4px solid #E50914; }
-        .movie-row { display: flex; overflow-x: auto; gap: 10px; padding: 0 15px; scrollbar-width: none; }
-        .movie-row::-webkit-scrollbar { display: none; }
-        
-        .movie-card { min-width: 110px; cursor: pointer; transition: 0.3s; }
-        .movie-card img { width: 100%; height: 160px; border-radius: 4px; object-fit: cover; }
-        
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; }
-        .modal-content { width: 95%; max-width: 600px; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid #333; }
-        .video-box { width: 100%; height: 300px; }
-        .video-box iframe { width: 100%; height: 100%; border: none; }
-        .close { padding: 15px; text-align: center; color: #fff; cursor: pointer; font-size: 16px; }
+        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logo { color: #E50914; font-size: 32px; font-weight: 900; }
+        .search-bar { width: 100%; padding: 12px; border-radius: 5px; border: none; margin-bottom: 20px; }
+        .movie-card { background: #141414; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+        .movie-card img { width: 100%; height: 200px; object-fit: cover; }
+        .info { padding: 15px; }
+        .title { font-size: 18px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <header>
+    <div class="header">
         <div class="logo">SEN</div>
-    </header>
+        <div style="background: #E50914; padding: 5px 10px; border-radius: 5px;">PREMIUM VIP</div>
+    </div>
 
-    <div id="content"></div>
+    <input type="text" class="search-bar" placeholder="ابحث عن أفلامك...">
 
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <div class="video-box" id="videoBox"></div>
-            <div class="close" onclick="closeModal()">إغلاق النافذة</div>
-        </div>
+    <div id="movie-list">
+        <!-- هنا تظهر الأفلام -->
     </div>
 
     <script>
-        const apiKey = '15d2ea6d0dc1d476efbca3eba2b9a775';
-        const sections = [
-            {title: "نتفليكس الرائج 🔥", url: `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}&language=ar`},
-            {title: "رعب وإثارة 👻", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27&language=ar`},
-            {title: "أكشن وحركة 💣", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&language=ar`},
-            {title: "خيال علمي 🚀", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=878&language=ar`}
+        // هذا الكود يعرض الأفلام اللي كانت تطلع عندك
+        const movies = [
+            {title: "The Dark Knight", year: "2008", rating: "9.0", image: "https://images.metadata.movienco.xyz/posters/tt0468569.jpg", url: "https://vidsrc.to/embed/movie/tt0468569"},
+            {title: "Avatar: The Way of Water", year: "2022", rating: "7.6", image: "https://images.metadata.movienco.xyz/posters/tt1630029.jpg", url: "https://vidsrc.to/embed/movie/tt1630029"}
         ];
 
-        async function init() {
-            const content = document.getElementById('content');
-            for(let sec of sections) {
-                let res = await fetch(sec.url);
-                let data = await res.json();
-                
-                let html = `<div class="row-container">
-                    <div class="row-title">${sec.title}</div>
-                    <div class="movie-row">`;
-                
-                data.results.forEach(m => {
-                    if(m.poster_path) {
-                        html += `<div class="movie-card" onclick="play('${m.id}')">
-                            <img src="https://image.tmdb.org/t/p/w300${m.poster_path}" loading="lazy">
-                        </div>`;
-                    }
-                });
-                html += `</div></div>`;
-                content.innerHTML += html;
-            }
-        }
-
-        function play(id) {
-            document.getElementById('videoBox').innerHTML = `<iframe src="https://vidsrc.to/embed/movie/${id}" allowfullscreen></iframe>`;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('videoBox').innerHTML = '';
-        }
-
-        init();
+        const list = document.getElementById('movie-list');
+        movies.forEach(m => {
+            list.innerHTML += `
+                <div class="movie-card" onclick="window.location.href='${m.url}'">
+                    <img src="${m.image}">
+                    <div class="info">
+                        <div class="title">${m.title}</div>
+                        <div>${m.rating} ⭐ - ${m.year}</div>
+                    </div>
+                </div>
+            `;
+        });
     </script>
 </body>
 </html>
