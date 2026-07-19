@@ -1,0 +1,70 @@
+{
+  "horror": [
+    {
+      "title": "The Conjuring",
+      "year": "2013",
+      "rating": "7.5",
+      "story": "تدور الأحداث حول محققين في الظواهر الخارقة للطبيعة يذهبان لمساعدة عائلة تتعرض لترهيب من قوى ظلامية في مزرعتهم المعزولة.",
+      "image": "https://image.tmdb.org/t/p/w500/w9kR8qbmQ91vQCTE3i2jIEgFd1E.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt1457767"
+    },
+    {
+      "title": "It",
+      "year": "2017",
+      "rating": "7.3",
+      "story": "في مدينة ديري، يتحد سبعة أطفال منبوذين لمواجهة كيان مرعب يتنكر في زي مهرج ويستهدف أطفال المدينة.",
+      "image": "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCV3Xv2Wnwbq3ZJSu6a.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt1396484"
+    },
+    {
+      "title": "Smile",
+      "year": "2022",
+      "rating": "6.7",
+      "story": "بعد مشاهدة حادثة غريبة ومؤلمة تقع لمريض، تبدأ طبيبة في مواجهة أحداث مرعبة لا يمكن تفسيرها وتسيطر على حياتها ابتسامة غامضة.",
+      "image": "https://image.tmdb.org/t/p/w500/aP1wzs5f2xtmGAX3uNsJfAN1mOI.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt15474916"
+    },
+    {
+      "title": "The Shining",
+      "year": "1980",
+      "rating": "8.4",
+      "story": "فيلم رعب كلاسيكي قديم. ينتقل كاتب مع عائلته إلى فندق معزول خلال الشتاء، ولكن القوى المظلمة في الفندق تدفعه ببطء نحو الجنون التام.",
+      "image": "https://image.tmdb.org/t/p/w500/x4U93BgJ6NHiIlS0mY5pZ0HQ0Ih.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt0081505"
+    }
+  ],
+  "trending": [
+    {
+      "title": "Inception",
+      "year": "2010",
+      "rating": "8.8",
+      "story": "عميل سري ماهر في سرقة الأسرار التجارية من عقول الأشخاص أثناء نومهم، يُعرض عليه مهمة شبه مستحيلة لزرع فكرة داخل عقل وريث شركة كبيرة.",
+      "image": "https://image.tmdb.org/t/p/w500/edv5CZvxyhGv272G37zZlh23lFM.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt1375666"
+    },
+    {
+      "title": "Interstellar",
+      "year": "2014",
+      "rating": "8.7",
+      "story": "مجموعة من رواد الفضاء يسافرون عبر ثقب دودي في الفضاء الخارجي بحثًا عن كوكب جديد يمكن للبشرية العيش فيه بعد أن شارف كوكب الأرض على الهلاك.",
+      "image": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6M3TeBPZp.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt0816692"
+    },
+    {
+      "title": "The Dark Knight",
+      "year": "2008",
+      "rating": "9.0",
+      "story": "عندما يظهر مجرم غامض يُدعى (الجوكر) ويعيث فساداً وفوضى في مدينة غوثام، يجب على باتمان قبول أحد أعظم الاختبارات النفسية والجسدية لمحاربة الظلم.",
+      "image": "https://image.tmdb.org/t/p/w500/qJ2tWGB25Ui1t75Sj5ugmMZjo1m.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt0468569"
+    },
+    {
+      "title": "Avatar: The Way of Water",
+      "year": "2022",
+      "rating": "7.6",
+      "story": "يعيش جيك سولي ونيتيري مع عائلتهما الجديدة على كوكب باندورا، ولكن عندما تعود التهديدات القديمة، يجب عليهما استكشاف مناطق جديدة ومحاربة البشر لحماية شعبهم.",
+      "image": "https://image.tmdb.org/t/p/w500/t61cTcl1446m4oLwKiKj3e8yEXm.jpg",
+      "video_url": "https://vidsrc.me/embed/movie?imdb=tt1630029"
+    }
+  ]
+}
