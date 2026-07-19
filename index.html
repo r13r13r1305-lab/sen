@@ -3,389 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEN | Netflix Premium Unlimited v2</title>
+    <title>SEN | Netflix Premium</title>
     <style>
-        :root {
-            --netflix-red: #E50914;
-            --bg-color: #080808;
-            --card-bg: #141414;
-            --text-color: #FFFFFF;
-            --text-glow: rgba(229, 9, 20, 0.4);
-        }
+        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 0; }
+        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #E50914; font-size: 32px; font-weight: 900; }
         
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            padding-bottom: 60px;
-        }
-
-        /* 🎬 شاشة الترحيب الرسمية لنتفليكس */
-        .welcome-screen {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%), 
-                        url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bafb-07ac18d8a743/default/SA-en-20241118-TRIFECTA-perspective_2674e3bf-92d5-4752-9742-88af7ecf144a_large.jpg') center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 20px;
-            z-index: 1000;
-            text-align: center;
-        }
-
-        .welcome-header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-        }
-
-        .welcome-logo {
-            color: var(--netflix-red);
-            font-size: 38px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px var(--text-glow);
-        }
-
-        .login-btn {
-            background: var(--netflix-red);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 0 10px var(--text-glow);
-        }
-
-        .welcome-main-text {
-            max-width: 600px;
-            margin-top: -40px;
-        }
-
-        .welcome-main-text h1 {
-            font-size: 34px;
-            font-weight: 800;
-            line-height: 1.4;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
-        }
-
-        .welcome-main-text p {
-            font-size: 16px;
-            color: #eee;
-            margin-bottom: 25px;
-        }
-
-        .start-btn {
-            background-color: var(--netflix-red);
-            color: white;
-            border: none;
-            width: 90%;
-            max-width: 400px;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--netflix-red);
-            transition: transform 0.2s;
-        }
-
-        .start-btn:active { transform: scale(0.97); }
-
-        /* ---------------------------------------------------- */
-        /* المنصة الرئيسية غير المحدودة */
-        .main-platform { display: none; }
-
-        header {
-            padding: 20px 5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #000;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #111;
-        }
-
-        .logo { color: var(--netflix-red); font-size: 32px; font-weight: 900; }
-
-        /* شريط البحث الذكي */
-        .search-container {
-            padding: 20px 5% 0 5%;
-            display: flex;
-            gap: 10px;
-        }
-
-        .search-bar {
-            width: 100%;
-            padding: 14px;
-            background-color: #222;
-            border: 1px solid #333;
-            border-radius: 6px;
-            color: white;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .search-bar:focus { border-color: var(--netflix-red); }
-
-        .row { margin: 30px 0; padding: 0 5%; }
-        .row h2 { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: #E5E5E5; border-right: 4px solid var(--netflix-red); padding-right: 10px; }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 12px;
-        }
-
-        .movie-card {
-            background: var(--card-bg);
-            border-radius: 4px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
+        /* القسم الأفقي */
+        .row-container { margin: 20px 0; }
+        .row-title { font-size: 20px; font-weight: bold; padding: 0 15px; margin-bottom: 10px; color: #fff; }
+        .movie-row { display: flex; overflow-x: auto; gap: 10px; padding: 0 15px; scrollbar-width: none; }
+        .movie-row::-webkit-scrollbar { display: none; }
+        
+        /* كرت الفيلم */
+        .movie-card { min-width: 120px; cursor: pointer; transition: 0.3s; }
         .movie-card:hover { transform: scale(1.05); }
-
-        .movie-card img {
-            width: 100%;
-            height: 165px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .movie-title {
-            padding: 6px;
-            font-size: 11px;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            background: #111;
-            text-align: center;
-        }
-
-        /* نافذة السينما المنبثقة للتشغيل المباشر */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center; align-items: center;
-            padding: 10px;
-        }
-
-        .modal.open { display: flex; }
-
-        .modal-content {
-            background: var(--card-bg);
-            width: 100%; max-width: 700px;
-            border-radius: 8px; overflow: hidden;
-            position: relative;
-            border: 1px solid #222;
-        }
-
-        .close-btn {
-            position: absolute; top: 12px; left: 12px; font-size: 24px; color: #fff;
-            cursor: pointer; z-index: 2100; background: rgba(0,0,0,0.6);
-            width: 35px; height: 35px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .video-container { width: 100%; position: relative; padding-top: 56.25%; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .modal-details { padding: 20px; }
-        .modal-title { font-size: 22px; font-weight: bold; margin-bottom: 8px; color: var(--netflix-red); }
-        .modal-meta { margin-bottom: 12px; color: #aaa; font-size: 13px; }
-        .modal-story { font-size: 14px; line-height: 1.5; color: #ddd; }
+        .movie-card img { width: 100%; height: 180px; border-radius: 6px; object-fit: cover; }
+        
+        /* المودال */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { width: 90%; max-width: 600px; background: #111; border-radius: 10px; overflow: hidden; }
+        .video-box { width: 100%; height: 250px; background: #000; }
+        .video-box iframe { width: 100%; height: 100%; border: none; }
+        .close { padding: 15px; text-align: center; color: #E50914; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="welcome-screen" id="welcomeScreen">
-        <div class="welcome-header">
-            <div class="welcome-logo">SEN</div>
-            <button class="login-btn" onclick="enterPlatform()">دخول سريع</button>
-        </div>
-        
-        <div class="welcome-main-text">
-            <h1>الأفلام والمسلسلات والبرامج غير محدودة على بُعد خطوة</h1>
-            <p>مكتبة نتفليكس الكاملة وسيرفرات تحديث فوري ذكي.</p>
-        </div>
-        
-        <button class="start-btn" onclick="enterPlatform()">ابدأ الاستعراض الخارق ◀</button>
-    </div>
+    <header>
+        <div class="logo">SEN</div>
+    </header>
 
-    <div class="main-platform" id="mainPlatform">
-        <header>
-            <div class="logo">SEN</div>
-            <span style="color:#aaa; font-size:12px;">تحديث تلقائي متاح 🟢</span>
-        </header>
+    <div id="content"></div>
 
-        <div class="search-container">
-            <input type="text" class="search-bar" id="searchBar" placeholder="ابحث في ملايين الأفلام والمسلسلات فورا..." oninput="searchMovies()">
-        </div>
-
-        <div class="row" id="search-row" style="display:none;">
-            <h2 style="border-color: #ffb400;">نتائج البحث 🔍</h2>
-            <div class="grid" id="search-grid"></div>
-        </div>
-
-        <div class="row">
-            <h2>أفلام نتفليكس الرائجة الآن 🔥</h2>
-            <div class="grid" id="trending-grid"></div>
-        </div>
-
-        <div class="row">
-            <h2>أفلام الرعب والإثارة العالمية 👻</h2>
-            <div class="grid" id="horror-grid"></div>
-        </div>
-
-        <div class="row">
-            <h2>أفلام الأكشن والحركة الخارقة 💣</h2>
-            <div class="grid" id="action-grid"></div>
-        </div>
-
-        <div class="row">
-            <h2>أفلام الخيال العلمي والفضاء 🚀</h2>
-            <div class="grid" id="scifi-grid"></div>
-        </div>
-
-        <div class="row">
-            <h2>المسلسلات التلفزيونية الأكثر شهرة 📺</h2>
-            <div class="grid" id="tv-grid"></div>
-        </div>
-    </div>
-
-    <div class="modal" id="movieModal" onclick="checkClose(event)">
+    <!-- نافذة العرض -->
+    <div class="modal" id="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="video-container" id="videoBox"></div>
-            <div class="modal-details">
-                <div class="modal-title" id="mdTitle">اسم الفيلم</div>
-                <div class="modal-meta" id="mdMeta">التاريخ والتقييم</div>
-                <p class="modal-story" id="mdStory"></p>
-            </div>
+            <div class="video-box" id="videoBox"></div>
+            <div class="close" onclick="closeModal()">إغلاق</div>
         </div>
     </div>
 
     <script>
-        const apiKey = '15d2ea6d0dc1d476efbca3eba2b9a775'; 
+        const apiKey = '15d2ea6d0dc1d476efbca3eba2b9a775';
+        const sections = [
+            {title: "أفلام رائجة 🔥", url: `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}&language=ar`},
+            {title: "أفلام رعب 👻", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27&language=ar`},
+            {title: "أكشن وحركة 💣", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&language=ar`},
+            {title: "خيال علمي 🚀", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=878&language=ar`}
+        ];
 
-        function enterPlatform() {
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('mainPlatform').style.display = 'block';
-            loadLiveMovies();
-        }
-
-        // جلب آلاف الأفلام الحية والمحدثة فوراً مع تحديد العدد الآمن للجوال
-        function loadLiveMovies() {
-            // 1. جلب الرائجة
-            fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}&language=ar`)
-                .then(res => res.json())
-                .then(data => renderLiveMovies(data.results.slice(0, 15), 'trending-grid', 'movie'));
-
-            // 2. جلب أفلام رعب (تصنيف 27)
-            fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27&language=ar`)
-                .then(res => res.json())
-                .then(data => renderLiveMovies(data.results.slice(0, 15), 'horror-grid', 'movie'));
-
-            // 3. جلب أفلام أكشن (تصنيف 28)
-            fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&language=ar`)
-                .then(res => res.json())
-                .then(data => renderLiveMovies(data.results.slice(0, 15), 'action-grid', 'movie'));
-
-            // 4. جلب أفلام خيال علمي (تصنيف 878)
-            fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=878&language=ar`)
-                .then(res => res.json())
-                .then(data => renderLiveMovies(data.results.slice(0, 15), 'scifi-grid', 'movie'));
-
-            // 5. جلب مسلسلات تليفزيونية رائجة
-            fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${apiKey}&language=ar`)
-                .then(res => res.json())
-                .then(data => renderLiveMovies(data.results.slice(0, 15), 'tv-grid', 'tv'));
-        }
-
-        function renderLiveMovies(movies, containerId, type) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = '';
-            movies.forEach(movie => {
-                if(!movie.poster_path) return;
-                const card = document.createElement('div');
-                card.className = 'movie-card';
-                card.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title || movie.name}" loading="lazy">
-                    <div class="movie-title">${movie.title || movie.name}</div>
-                `;
-                card.onclick = () => openModal(movie, type);
-                container.appendChild(card);
-            });
-        }
-
-        // محرك بحث فوري يبحث في ملايين العناوين بلمحة بصر
-        function searchMovies() {
-            const query = document.getElementById('searchBar').value;
-            const searchRow = document.getElementById('search-row');
-            if(!query) { searchRow.style.display = 'none'; return; }
-
-            fetch(`https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=ar`)
-                .then(res => res.json())
-                .then(data => {
-                    if(data.results.length > 0) {
-                        searchRow.style.display = 'block';
-                        renderLiveMovies(data.results.slice(0, 18), 'search-grid', 'movie');
+        async function init() {
+            for(let sec of sections) {
+                let res = await fetch(sec.url);
+                let data = await res.json();
+                
+                let html = `<div class="row-container">
+                    <div class="row-title">${sec.title}</div>
+                    <div class="movie-row">`;
+                
+                data.results.forEach(m => {
+                    if(m.poster_path) {
+                        html += `<div class="movie-card" onclick="play('${m.id}')">
+                            <img src="https://image.tmdb.org/t/p/w300${m.poster_path}">
+                        </div>`;
                     }
                 });
+                html += `</div></div>`;
+                document.getElementById('content').innerHTML += html;
+            }
         }
 
-        // تشغيل الفيلم أو المسلسل تلقائياً من سيرفر المشاهدة العالمي
-        function openModal(movie, type) {
-            const modal = document.getElementById('movieModal');
-            const title = movie.title || movie.name;
-            const releaseDate = movie.release_date || movie.first_air_date || 'غير معروف';
-            const year = releaseDate !== 'غير معروف' ? releaseDate.split('-')[0] : 'غير معروف';
-            
-            document.getElementById('mdTitle').innerText = title;
-            document.getElementById('mdMeta').innerText = `السنة: ${year} | ⭐ التقييم: ${movie.vote_average}/10`;
-            document.getElementById('mdStory').innerText = movie.overview || 'لا تتوفر قصة باللغة العربية حالياً.';
-            
-            // تحديد رابط السيرفر الذكي بناءً على كونه فيلم أو مسلسل (tv)
-            let embedUrl = `https://vidsrc.to/embed/movie/${movie.id}`;
-            if(type === 'tv' || movie.media_type === 'tv') {
-                embedUrl = `https://vidsrc.to/embed/tv/${movie.id}`;
-            }
-            
-            document.getElementById('videoBox').innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
-            modal.classList.add('open');
+        function play(id) {
+            document.getElementById('videoBox').innerHTML = `<iframe src="https://vidsrc.to/embed/movie/${id}" allowfullscreen></iframe>`;
+            document.getElementById('modal').style.display = 'flex';
         }
 
         function closeModal() {
-            const modal = document.getElementById('movieModal');
-            modal.classList.remove('open');
-            document.getElementById('videoBox').innerHTML = ''; 
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('videoBox').innerHTML = '';
         }
 
-        function checkClose(e) { if(e.target.id === 'movieModal') closeModal(); }
+        init();
     </script>
 </body>
 </html>
