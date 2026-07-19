@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEN - عالم الأفلام</title>
+    <style>
+        body { background-color: #0b0b0b; color: #ffffff; font-family: sans-serif; margin: 0; padding: 20px; text-align: center; }
+        .logo { color: #e50914; font-size: 3rem; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px; }
+        .search-box { width: 85%; max-width: 500px; padding: 12px 20px; border-radius: 25px; border: 1px solid #333; background: #222; color: #fff; font-size: 1rem; outline: none; margin-bottom: 30px; }
+        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .movie-card { background: #1c1c1c; border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .movie-card:hover { transform: scale(1.05); }
+        .movie-card img { width: 100%; height: 210px; object-fit: cover; background: #222; }
+        .movie-title { padding: 10px; font-size: 0.85rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; flex-direction: column; }
+        .player-header { background: #111; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .back-btn { background: #e50914; color: #fff; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .video-wrapper { flex: 1; }
+        .video-wrapper iframe { width: 100%; height: 100%; border: none; }
+        .load-more { background: #e50914; color: white; border: none; padding: 12px 30px; margin: 30px auto; border-radius: 5px; font-size: 1rem; cursor: pointer; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="logo">SEN</div>
+    <input type="text" class="search-box" id="searchInp" placeholder="ابحث عن أي فيلم بالإنجليزية..." oninput="searchMovies()">
+    
+    <div class="movies-grid" id="moviesContainer"></div>
+    <button class="load-more" id="loadMoreBtn" onclick="loadMore()">عرض المزيد من الأفلام ..</button>
+
+    <div class="player-modal" id="playerModal">
+        <div class="player-header">
+            <h3 id="playingTitle">جاري التحميل...</h3>
+            <button class="back-btn" onclick="closePlayer()">إغلاق ✕</button>
+        </div>
+        <div class="video-wrapper">
+            <iframe id="videoPlayer" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = 'a97576f3f00a5d43ecbb6778f7e25287';
+        let currentPage = 1;
+        let isSearch = false;
+
+        async function getMovies(page) {
+            try {
+                const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`);
+                const data = await res.json();
+                display(data.results, page === 1);
+            } catch(e) { console.log('خطأ في جلب البيانات'); }
+        }
+
+        async function searchMovies() {
+            const q = document.getElementById('searchInp').value;
+            if(!q) {
+                isSearch = false;
+                currentPage = 1;
+                getMovies(1);
+                document.getElementById('loadMoreBtn').style.display = 'inline-block';
+                return;
+            }
+            isSearch = true;
+            document.getElementById('loadMoreBtn').style.display = 'none';
+            try {
+                const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(q)}&language=en-US`);
+                const data = await res.json();
+                display(data.results, true);
+            } catch(e) { console.log('خطأ في البحث'); }
+        }
+
+        function display(movies, clearContainer) {
+            const container = document.getElementById('moviesContainer');
+            if(clearContainer) container.innerHTML = '';
+            
+            movies.forEach(m => {
+                if(!m.poster_path) return;
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.onclick = () => openPlayer(m.id, m.title);
+                card.innerHTML = `
+                    <img src="https://image.tmdb.org/t/p/w500${m.poster_path}">
+                    <div class="movie-title">${m.title}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function loadMore() {
+            if(isSearch) return;
+            currentPage++;
+            getMovies(currentPage);
+        }
+
+        function openPlayer(id, title) {
+            document.getElementById('playingTitle').innerText = title;
+            document.getElementById('videoPlayer').src = `https://vidsrc.xyz/embed/movie/${id}`;
+            document.getElementById('playerModal').style.display = 'flex';
+        }
+
+        function closePlayer() {
+            document.getElementById('playerModal').style.display = 'none';
+            document.getElementById('videoPlayer').src = '';
+        }
+
+        window.onload = () => getMovies(1);
+    </script>
+</body>
+</html>
