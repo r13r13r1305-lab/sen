@@ -3,29 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEN | Netflix Premium</title>
+    <title>SEN | Premium Flix</title>
     <style>
         body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 0; }
-        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: #E50914; font-size: 32px; font-weight: 900; }
+        header { padding: 15px; display: flex; align-items: center; }
+        .logo { color: #E50914; font-size: 28px; font-weight: 900; margin-right: 15px; }
         
-        /* القسم الأفقي */
-        .row-container { margin: 20px 0; }
-        .row-title { font-size: 20px; font-weight: bold; padding: 0 15px; margin-bottom: 10px; color: #fff; }
+        .row-container { margin: 25px 0; }
+        .row-title { font-size: 18px; font-weight: bold; padding: 0 15px; margin-bottom: 12px; border-right: 4px solid #E50914; }
         .movie-row { display: flex; overflow-x: auto; gap: 10px; padding: 0 15px; scrollbar-width: none; }
         .movie-row::-webkit-scrollbar { display: none; }
         
-        /* كرت الفيلم */
-        .movie-card { min-width: 120px; cursor: pointer; transition: 0.3s; }
-        .movie-card:hover { transform: scale(1.05); }
-        .movie-card img { width: 100%; height: 180px; border-radius: 6px; object-fit: cover; }
+        .movie-card { min-width: 110px; cursor: pointer; transition: 0.3s; }
+        .movie-card img { width: 100%; height: 160px; border-radius: 4px; object-fit: cover; }
         
-        /* المودال */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { width: 90%; max-width: 600px; background: #111; border-radius: 10px; overflow: hidden; }
-        .video-box { width: 100%; height: 250px; background: #000; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; }
+        .modal-content { width: 95%; max-width: 600px; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid #333; }
+        .video-box { width: 100%; height: 300px; }
         .video-box iframe { width: 100%; height: 100%; border: none; }
-        .close { padding: 15px; text-align: center; color: #E50914; cursor: pointer; font-weight: bold; }
+        .close { padding: 15px; text-align: center; color: #fff; cursor: pointer; font-size: 16px; }
     </style>
 </head>
 <body>
@@ -36,24 +32,24 @@
 
     <div id="content"></div>
 
-    <!-- نافذة العرض -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="video-box" id="videoBox"></div>
-            <div class="close" onclick="closeModal()">إغلاق</div>
+            <div class="close" onclick="closeModal()">إغلاق النافذة</div>
         </div>
     </div>
 
     <script>
         const apiKey = '15d2ea6d0dc1d476efbca3eba2b9a775';
         const sections = [
-            {title: "أفلام رائجة 🔥", url: `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}&language=ar`},
-            {title: "أفلام رعب 👻", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27&language=ar`},
+            {title: "نتفليكس الرائج 🔥", url: `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}&language=ar`},
+            {title: "رعب وإثارة 👻", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27&language=ar`},
             {title: "أكشن وحركة 💣", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&language=ar`},
             {title: "خيال علمي 🚀", url: `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=878&language=ar`}
         ];
 
         async function init() {
+            const content = document.getElementById('content');
             for(let sec of sections) {
                 let res = await fetch(sec.url);
                 let data = await res.json();
@@ -65,12 +61,12 @@
                 data.results.forEach(m => {
                     if(m.poster_path) {
                         html += `<div class="movie-card" onclick="play('${m.id}')">
-                            <img src="https://image.tmdb.org/t/p/w300${m.poster_path}">
+                            <img src="https://image.tmdb.org/t/p/w300${m.poster_path}" loading="lazy">
                         </div>`;
                     }
                 });
                 html += `</div></div>`;
-                document.getElementById('content').innerHTML += html;
+                content.innerHTML += html;
             }
         }
 
